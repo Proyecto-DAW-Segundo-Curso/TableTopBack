@@ -96,7 +96,22 @@ public class User {
         this.role = role;
     }
 
-    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("User{");
+        sb.append("id=").append(id);
+        sb.append(", username=").append(username);
+        sb.append(", email=").append(email);
+        sb.append(", password=").append(password);
+        sb.append(", role=").append(role);
+        sb.append(", eventsCreated=").append(eventsCreated);
+        sb.append(", eventsJoined=").append(eventsJoined);
+        sb.append('}');
+        return sb.toString();
+    }
 
+    
+    
     
 }

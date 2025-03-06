@@ -33,5 +33,82 @@ public class Event {
         inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> participants;
 
+    public Event() {
+    }
+
     // Getters y Setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public void setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public Set<User> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Set<User> participants) {
+        this.participants = participants;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Event{");
+        sb.append("id=").append(id);
+        sb.append(", name=").append(name);
+        sb.append(", location=").append(location);
+        sb.append(", dateTime=").append(dateTime);
+        sb.append(", maxPlayers=").append(maxPlayers);
+        sb.append(", creator=").append(creator);
+        sb.append(", participants=").append(participants);
+        sb.append('}');
+        return sb.toString();
+    }
+
+
+
 } 
