@@ -91,5 +91,5 @@ public class Event {
                 + ", maxPlayers=" + maxPlayers + ", creatorId=" + creatorId + ", participants=" + participants + "]";
     }
 
-    
+        
 }
