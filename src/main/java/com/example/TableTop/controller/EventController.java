@@ -19,13 +19,14 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    @PostMapping
+    @PostMapping("create-event")
     public Event createEvent(@RequestBody Event event, HttpServletRequest request) {
         String firebaseUid = extractFirebaseUid(request); // 🔥 Obtener el UID de Firebase
+        System.out.println("He llegado a create event con el firebaseUid: " + firebaseUid);
         return eventService.createEvent(event, firebaseUid);
     }
 
-    @GetMapping
+    @GetMapping("/")
     public List<Event> getAllEvents() {
         return eventService.getAllEvents();
     }
@@ -54,6 +55,7 @@ public class EventController {
         if (token != null && token.startsWith("Bearer ")) {
             try {
                 FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token.substring(7));
+                System.out.println("He llegado a extractFirebaseUid con el firebaseUid: " + decodedToken.getUid());
                 return decodedToken.getUid();
             } catch (Exception e) {
                 throw new RuntimeException("Error al verificar el token de Firebase");
