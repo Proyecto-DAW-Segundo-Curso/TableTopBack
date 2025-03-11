@@ -9,5 +9,4 @@ public class TableTopApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TableTopApplication.class, args);
 	}
-
 }
