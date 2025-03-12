@@ -1,6 +1,7 @@
 package com.example.TableTop.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.TableTop.model.Event;
 import com.example.TableTop.service.EventService;
+import com.example.TableTop.service.FirebaseUserService;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
@@ -30,6 +32,9 @@ public class EventController {
     
     @Autowired
     private EventService eventService;
+    
+    @Autowired
+    private FirebaseUserService firebaseUserService;
 
     @PostMapping("create-event")
     public Event createEvent(@RequestBody Event event, HttpServletRequest request) {
