@@ -63,6 +63,13 @@ public class EventController {
         logger.info("Salir del evento {} con usuario ID: {}", id, userId);
         return eventService.leaveEvent(id, userId);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateEvent(@PathVariable Long id, @RequestBody Event updatedEvent, HttpServletRequest request) {
+        String userId = getUserId(request);
+        logger.info("Actualizando evento {} con usuario ID: {}", id, userId);
+        return eventService.updateEvent(id, updatedEvent, userId);
+    }
     
     /**
      * Método centralizado para obtener el ID de usuario, ya sea de Firebase o el modo desarrollo
