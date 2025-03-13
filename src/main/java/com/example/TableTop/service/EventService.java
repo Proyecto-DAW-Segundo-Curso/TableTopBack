@@ -1,6 +1,7 @@
 package com.example.TableTop.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -68,14 +69,14 @@ public class EventService {
         if (optionalEvent.isPresent()) {
             Event event = optionalEvent.get();
             if (!event.getParticipants().contains(firebaseUid)) {
-                return ResponseEntity.badRequest().body("No estás en este evento.");
+                return ResponseEntity.badRequest().body(Map.of("message", "No estás en este evento."));
             }
 
             event.getParticipants().remove(firebaseUid);
             eventRepository.save(event);
-            return ResponseEntity.ok("Has salido del evento.");
+            return ResponseEntity.ok(Map.of("message", "Has salido del evento."));
         }
-        return ResponseEntity.status(404).body("Evento no encontrado.");
+        return ResponseEntity.status(404).body(Map.of("message", "Evento no encontrado."));
     }
 
     public ResponseEntity<?> updateEvent(Long eventId, Event updatedEvent, String firebaseUid) {
