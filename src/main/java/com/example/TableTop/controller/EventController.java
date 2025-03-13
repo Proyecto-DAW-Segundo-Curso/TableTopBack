@@ -48,6 +48,17 @@ public class EventController {
         return eventService.getAllEvents();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getEvent(@PathVariable Long id) {
+        logger.info("Obteniendo evento con ID: {}", id);
+        ResponseEntity<?> response = eventService.getEvent(id);
+        logger.info("Respuesta del servicio para evento {}: {}", id, response.getStatusCode());
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            logger.warn("No se encontró el evento con ID: {}", id);
+        }
+        return response;
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteEvent(@PathVariable Long id, HttpServletRequest request) {
         String userId = getUserId(request);
