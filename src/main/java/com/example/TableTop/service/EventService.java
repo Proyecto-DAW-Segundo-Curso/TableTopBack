@@ -1,8 +1,11 @@
 package com.example.TableTop.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,8 @@ import com.example.TableTop.repository.EventRepository;
 
 @Service
 public class EventService {
+    private static final Logger logger = LoggerFactory.getLogger(EventService.class);
+
     @Autowired
     private EventRepository eventRepository;
 
@@ -64,14 +69,14 @@ public class EventService {
         if (optionalEvent.isPresent()) {
             Event event = optionalEvent.get();
             if (!event.getParticipants().contains(firebaseUid)) {
-                return ResponseEntity.badRequest().body("No estás en este evento.");
+                return ResponseEntity.badRequest().body(Map.of("message", "No estás en este evento."));
             }
 
             event.getParticipants().remove(firebaseUid);
             eventRepository.save(event);
-            return ResponseEntity.ok("Has salido del evento.");
+            return ResponseEntity.ok(Map.of("message", "Has salido del evento."));
         }
-        return ResponseEntity.status(404).body("Evento no encontrado.");
+        return ResponseEntity.status(404).body(Map.of("message", "Evento no encontrado."));
     }
 
     public ResponseEntity<?> updateEvent(Long eventId, Event updatedEvent, String firebaseUid) {
@@ -99,6 +104,19 @@ public class EventService {
             Event savedEvent = eventRepository.save(event);
             return ResponseEntity.ok(savedEvent);
         }
+        return ResponseEntity.status(404).body("Evento no encontrado.");
+    }
+
+    public ResponseEntity<?> getEvent(Long eventId) {
+        logger.info("Buscando evento con ID: {}", eventId);
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+        if (optionalEvent.isPresent()) {
+            Event event = optionalEvent.get();
+            logger.info("Evento encontrado - ID: {}, Nombre: {}, Creador: {}", 
+                event.getId(), event.getName(), event.getCreatorId());
+            return ResponseEntity.ok(event);
+        }
+        logger.warn("No se encontró el evento con ID: {}", eventId);
         return ResponseEntity.status(404).body("Evento no encontrado.");
     }
 }
